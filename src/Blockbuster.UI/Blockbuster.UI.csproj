@@ -10,4 +10,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Blockbuster.Application\Blockbuster.Application.csproj" />
+    <ProjectReference Include="..\Blockbuster.CrossCutting.IoC\Blockbuster.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\Blockbuster.Domain\Blockbuster.Domain.csproj" />
+    <ProjectReference Include="..\Blockbuster.Infra\Blockbuster.Infra.csproj" />
+  </ItemGroup>
+
 </Project>

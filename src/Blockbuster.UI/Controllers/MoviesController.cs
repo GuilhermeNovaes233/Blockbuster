@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Blockbuster.Application.Interfaces;
+using Blockbuster.Application.ViewModels.Movie.Request;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Blockbuster.UI.Controllers
 {
-    public class MoviesController : Controller
+    [Route("api/[controller]")]
+    public class MoviesController : BaseController
     {
-        public IActionResult Index()
+        private readonly IMoviesAppService _moviesAppService;
+        public MoviesController(IMoviesAppService moviesAppService)
         {
-            return View();
+            _moviesAppService = moviesAppService;
         }
+
+        [HttpPost("sample")]
+        public async Task<IActionResult> PostMovieAsync([FromBody] AddMovieViewModel request)
+            =>  Return(await _moviesAppService.AddMovieAsync(request));
     }
 }
