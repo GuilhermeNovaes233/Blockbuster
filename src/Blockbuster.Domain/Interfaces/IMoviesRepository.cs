@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Blockbuster.Domain.Elastic;
+using Blockbuster.Domain.Indexes;
 
 namespace Blockbuster.Domain.Interfaces
 {
-    public interface IMoviesRepository
+    public interface IMoviesRepository : IElasticBaseRepository<IndexMovies>
     {
     }
 }

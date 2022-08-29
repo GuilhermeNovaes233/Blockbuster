@@ -13,8 +13,12 @@ namespace Blockbuster.UI.Controllers
             _moviesAppService = moviesAppService;
         }
 
-        [HttpPost("sample")]
+        [HttpPost]
         public async Task<IActionResult> PostMovieAsync([FromBody] AddMovieViewModel request)
             =>  Return(await _moviesAppService.AddMovieAsync(request));
+
+        [HttpGet]
+        public async Task<IActionResult> GetMoviesAsync()
+            => Return(await _moviesAppService.GetAllAsync());
     }
 }
