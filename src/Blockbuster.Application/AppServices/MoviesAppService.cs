@@ -105,5 +105,34 @@ namespace Blockbuster.Application.AppServices
                     .CustomError(new ErrorResponseViewModel(ex.Message), (int)HttpStatusCode.InternalServerError);
             }
         }
+
+        public async Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetByNameWithWildcard(string name)
+        {
+            try
+            {
+                var query = new QueryContainerDescriptor<IndexMovies>().Wildcard(w => w.Field(f => f.Name).Value($"*{name}*").CaseInsensitive());
+
+                var responseOnElastic = await _moviesRepository.SearchAsync(_ => query);
+                if (responseOnElastic == null)
+                    return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
+
+                var response = new MoviesResponseViewModel();
+                foreach (var item in responseOnElastic)
+                {
+                    var movie = new MovieViewModel(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+
+                    response.Movies.Add(movie);
+                }
+
+                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Erro ao tentar buscar filme: {ex.Message}");
+
+                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>()
+                    .CustomError(new ErrorResponseViewModel(ex.Message), (int)HttpStatusCode.InternalServerError);
+            }
+        }
     }
 }

@@ -50,5 +50,18 @@ namespace Blockbuster.UI.Controllers
         [HttpGet("name-match")]
         public async Task<IActionResult> GetMoviesByNameAsync([FromQuery] string name)
             => Return(await _moviesAppService.GetMoviesByNameAsync(name));
+
+
+        /// <summary>
+        ///  Api que retorna os filmes cadastrados pelo texto digitado
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(MoviesResponseViewModel), 200)]
+        [ProducesResponseType(typeof(ErrorResponseViewModel), 404)]
+        [ProducesResponseType(typeof(ErrorResponseViewModel), 500)]
+        [ProducesResponseType(typeof(ErrorResponseViewModel), 401)]
+        [HttpGet("name-wildcard")]
+        public async Task<IActionResult> GetByNameWithWildcard([FromQuery] string name)
+            => Return(await _moviesAppService.GetByNameWithWildcard(name));
     }
 }
