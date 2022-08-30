@@ -1,6 +1,6 @@
 # Blockbuster
 
-Projeto desenvolvido com finalidade de estudos sobre os mecanismo de busca do Elastic Search
+O Projeto esta sendo desenvolvido com finalidade de estudos sobre os mecanismo de busca do Elastic Search. A ideia foi criar APIs para adicionar e consumir filmes do elastic search.
 
 ##  :beginner: Sobre
 
