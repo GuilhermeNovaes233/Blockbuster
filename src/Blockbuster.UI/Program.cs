@@ -1,5 +1,6 @@
 using Blockbuster.CrossCutting.IoC;
 using Blockbuster.UI.Configurations;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,15 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.InjectStylesheet("/swagger/custom.css");
+        c.DocExpansion(DocExpansion.None);
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    });
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
