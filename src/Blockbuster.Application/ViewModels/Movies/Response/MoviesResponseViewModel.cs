@@ -4,9 +4,9 @@ namespace Blockbuster.Application.ViewModels.Movies.Response
 {
     public class MoviesResponseViewModel
     {
-        public MoviesResponseViewModel()
+        public MoviesResponseViewModel(List<MovieViewModel> movies)
         {
-            Movies = new List<MovieViewModel>();
+            Movies = movies;
         }
 
         public List<MovieViewModel> Movies { get; set; }

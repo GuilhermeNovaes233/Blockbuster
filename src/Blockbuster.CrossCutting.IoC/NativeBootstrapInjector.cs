@@ -1,4 +1,5 @@
 ﻿using Blockbuster.Application.AppServices;
+using Blockbuster.Application.AutoMapper;
 using Blockbuster.Application.Interfaces;
 using Blockbuster.Domain.Interfaces;
 using Blockbuster.Infra.Repositories;
@@ -16,6 +17,9 @@ namespace Blockbuster.CrossCutting.IoC
 
             //Application Services
             services.AddScoped<IMoviesAppService, MoviesAppService>();
+
+            var mapper = AutoMapperConfiguration.RegisterMappings().CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

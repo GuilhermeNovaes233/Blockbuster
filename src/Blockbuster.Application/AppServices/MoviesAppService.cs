@@ -1,4 +1,5 @@
-﻿using Blockbuster.Application.Interfaces;
+﻿using AutoMapper;
+using Blockbuster.Application.Interfaces;
 using Blockbuster.Application.ViewModels;
 using Blockbuster.Application.ViewModels.Movie.Request;
 using Blockbuster.Application.ViewModels.Movies;
@@ -16,10 +17,15 @@ namespace Blockbuster.Application.AppServices
     {
         private readonly ILogger<MoviesAppService> _logger;
         private readonly IMoviesRepository _moviesRepository;
+        private readonly IMapper _mapper;
 
-        public MoviesAppService(ILogger<MoviesAppService> logger, IMoviesRepository moviesRepository)
+        public MoviesAppService(
+            ILogger<MoviesAppService> logger,
+            IMapper mapper,
+            IMoviesRepository moviesRepository)
         {
             _logger = logger;
+            _mapper = mapper;
             _moviesRepository = moviesRepository;
         }
 
@@ -30,15 +36,9 @@ namespace Blockbuster.Application.AppServices
                 if (requestModel.Movies == null || !requestModel.Movies.Any())
                     return new Either<ErrorResponseViewModel, SuccessResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
 
-                var list = new List<IndexMovies>() { };
-                foreach (var item in requestModel.Movies)
-                {
-                    var movie = new IndexMovies(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+                var vm = _mapper.Map<List<IndexMovies>>(requestModel.Movies);
 
-                    list.Add(movie);
-                }
-
-                await _moviesRepository.InsertManyAsync(list);
+                await _moviesRepository.InsertManyAsync(vm);
 
                 return new Either<ErrorResponseViewModel, SuccessResponseViewModel>().Ok(new SuccessResponseViewModel("Sucesso ao cadastrar filmes"));
             }
@@ -59,15 +59,9 @@ namespace Blockbuster.Application.AppServices
                 if (responseOnElastic == null)
                     return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
 
-                var response = new MoviesResponseViewModel();
-                foreach (var item in responseOnElastic)
-                {
-                    var movie = new MovieViewModel(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+                var vm = _mapper.Map<List<MovieViewModel>>(responseOnElastic);
 
-                    response.Movies.Add(movie);
-                }
-
-                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(response);
+                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(new MoviesResponseViewModel(vm));
             }
             catch(Exception ex)
             {
@@ -88,15 +82,9 @@ namespace Blockbuster.Application.AppServices
                 if (responseOnElastic == null)
                     return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
 
-                var response = new MoviesResponseViewModel();
-                foreach (var item in responseOnElastic)
-                {
-                    var movie = new MovieViewModel(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+                var vm = _mapper.Map<List<MovieViewModel>>(responseOnElastic);
 
-                    response.Movies.Add(movie);
-                }
-
-                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(response);
+                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(new MoviesResponseViewModel(vm));
             }
             catch (Exception ex)
             {
@@ -117,15 +105,9 @@ namespace Blockbuster.Application.AppServices
                 if (responseOnElastic == null)
                     return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
 
-                var response = new MoviesResponseViewModel();
-                foreach (var item in responseOnElastic)
-                {
-                    var movie = new MovieViewModel(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+                var vm = _mapper.Map<List<MovieViewModel>>(responseOnElastic);
 
-                    response.Movies.Add(movie);
-                }
-
-                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(response);
+                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(new MoviesResponseViewModel(vm));
             }
             catch (Exception ex)
             {
@@ -146,15 +128,9 @@ namespace Blockbuster.Application.AppServices
                 if (responseOnElastic == null)
                     return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
 
-                var response = new MoviesResponseViewModel();
-                foreach (var item in responseOnElastic)
-                {
-                    var movie = new MovieViewModel(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+                var vm = _mapper.Map<List<MovieViewModel>>(responseOnElastic);
 
-                    response.Movies.Add(movie);
-                }
-
-                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(response);
+                return new Either<ErrorResponseViewModel, MoviesResponseViewModel>().Ok(new MoviesResponseViewModel(vm));
             }
             catch (Exception ex)
             {
