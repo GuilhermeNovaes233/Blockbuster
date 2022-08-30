@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Blockbuster.Application.ViewModels.Movies;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Blockbuster.Application.ViewModels.Movie.Request
 {
     public class AddMovieViewModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string AgeGroup { get; set; }
-        public string MovieGenre { get; set; }
-        public string ReleaseDate { get; set; }
-        public string Director { get; set; }
+        public AddMovieViewModel()
+        {
+            Movies = new List<MovieViewModel>();
+        }
+
+        [Required]
+        public List<MovieViewModel> Movies { get; set; }
     }
 }

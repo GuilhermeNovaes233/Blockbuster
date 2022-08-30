@@ -27,15 +27,16 @@ namespace Blockbuster.Application.AppServices
         {
             try
             {
-                var list = new List<IndexMovies>() {
-                    new IndexMovies(
-                        requestModel.Name,
-                        requestModel.Description,
-                        requestModel.AgeGroup,
-                        requestModel.MovieGenre,
-                        requestModel.ReleaseDate,
-                        requestModel.Director)
-                };
+                if (requestModel.Movies == null || !requestModel.Movies.Any())
+                    return new Either<ErrorResponseViewModel, SuccessResponseViewModel>().NotFound(new ErrorResponseViewModel("Filmes não encontrados"));
+
+                var list = new List<IndexMovies>() { };
+                foreach (var item in requestModel.Movies)
+                {
+                    var movie = new IndexMovies(item.Name, item.Description, item.AgeGroup, item.MovieGenre, item.ReleaseDate, item.Director);
+
+                    list.Add(movie);
+                }
 
                 await _moviesRepository.InsertManyAsync(list);
 

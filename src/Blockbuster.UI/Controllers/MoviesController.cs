@@ -25,7 +25,12 @@ namespace Blockbuster.UI.Controllers
         [ProducesResponseType(typeof(ErrorResponseViewModel), 401)]
         [HttpPost]
         public async Task<IActionResult> PostMovieAsync([FromBody] AddMovieViewModel request)
-            =>  Return(await _moviesAppService.AddMovieAsync(request));
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            return Return(await _moviesAppService.AddMovieAsync(request));
+        }
 
         /// <summary>
         ///  Api que retorna os filmes cadastrados
