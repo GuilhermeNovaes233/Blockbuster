@@ -41,7 +41,7 @@ namespace Blockbuster.UI.Controllers
         [ProducesResponseType(typeof(ErrorResponseViewModel), 500)]
         [ProducesResponseType(typeof(ErrorResponseViewModel), 401)]
         [HttpGet("list")]
-        public async Task<IActionResult> GetMoviesAsync()
+        public async Task<IActionResult> GetMovies()
             => Return(await _moviesAppService.GetAllAsync());
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Blockbuster.UI.Controllers
         [ProducesResponseType(typeof(ErrorResponseViewModel), 500)]
         [ProducesResponseType(typeof(ErrorResponseViewModel), 401)]
         [HttpGet("name-match")]
-        public async Task<IActionResult> GetMoviesByNameAsync([FromQuery] string name)
+        public async Task<IActionResult> GetMoviesByName([FromQuery] string name)
             => Return(await _moviesAppService.GetMoviesByNameAsync(name));
 
 
@@ -67,6 +67,19 @@ namespace Blockbuster.UI.Controllers
         [ProducesResponseType(typeof(ErrorResponseViewModel), 401)]
         [HttpGet("name-wildcard")]
         public async Task<IActionResult> GetByNameWithWildcard([FromQuery] string name)
-            => Return(await _moviesAppService.GetByNameWithWildcard(name));
+            => Return(await _moviesAppService.GetByNameWithWildcardAsync(name));
+
+
+        /// <summary>
+        ///  Api que retorna os filmes cadastrados pela categoria
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(MoviesResponseViewModel), 200)]
+        [ProducesResponseType(typeof(ErrorResponseViewModel), 404)]
+        [ProducesResponseType(typeof(ErrorResponseViewModel), 500)]
+        [ProducesResponseType(typeof(ErrorResponseViewModel), 401)]
+        [HttpGet("genre")]
+        public async Task<IActionResult> GetByMovieGenre([FromQuery] string movieGenre)
+            => Return(await _moviesAppService.GetByMovieGenreAsync(movieGenre));
     }
 }

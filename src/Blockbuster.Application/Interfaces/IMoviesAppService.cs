@@ -9,7 +9,8 @@ namespace Blockbuster.Application.Interfaces
     {
         Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetAllAsync();
         Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetMoviesByNameAsync(string name);
-        Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetByNameWithWildcard(string name);
+        Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetByNameWithWildcardAsync(string name);
+        Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetByMovieGenreAsync(string movieGenre);
         Task<Either<ErrorResponseViewModel, SuccessResponseViewModel>> AddMovieAsync(AddMovieViewModel requestModel);
     }
 }
