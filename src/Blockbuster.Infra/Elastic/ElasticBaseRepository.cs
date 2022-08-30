@@ -37,6 +37,18 @@ namespace Blockbuster.Infra.Elastic
             return response.Hits.Select(hit => hit.Source).ToList();
         }
 
+        public async Task<IEnumerable<T>> SearchAsync(Func<QueryContainerDescriptor<T>, QueryContainer> request)
+        {
+            var response = await _elasticClient.SearchAsync<T>(s =>
+                s.Index(IndexName)
+                    .Query(request));
+
+            if (!response.IsValid)
+                throw new Exception(response.ServerError?.ToString(), response.OriginalException);
+
+            return response.Hits.Select(hit => hit.Source).ToList();
+        }
+
         public async Task<bool> CreateIndexAsync()
         {
             if (!(await _elasticClient.Indices.ExistsAsync(IndexName)).Exists)

@@ -8,6 +8,7 @@ namespace Blockbuster.Application.Interfaces
     public interface IMoviesAppService
     {
         Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetAllAsync();
+        Task<Either<ErrorResponseViewModel, MoviesResponseViewModel>> GetMoviesByNameAsync(string name);
         Task<Either<ErrorResponseViewModel, SuccessResponseViewModel>> AddMovieAsync(AddMovieViewModel requestModel);
     }
 }
