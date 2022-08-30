@@ -1,6 +1,12 @@
 # Blockbuster
-Projeto criado para estudo sobre Elastic Search
 
+Projeto desenvolvido com finalidade de estudos sobre os mecanismo de busca do Elastic Search
+
+##  :beginner: Sobre
+
+O que é o Elastic Search?
+
+o Elasticsearch é um mecanismo de busca e análise de dados distribuído, gratuito e aberto para todos os tipos de dados, incluindo textuais, numéricos, geoespaciais, estruturados e não estruturados. <a href="https://www.elastic.co/pt/what-is/elasticsearch">Saiba mais...</a>
 
 Swagger
 
